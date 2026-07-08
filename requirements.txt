@@ -1,0 +1,16 @@
+# Backend Python dependencies for PulsePoint AI.
+# The backend service also keeps the same list at backend/requirements.txt.
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+apscheduler
+python-pptx
+matplotlib
+pandas
+openpyxl
+python-multipart
+python-docx
+httpx
+pyyaml
+pytest

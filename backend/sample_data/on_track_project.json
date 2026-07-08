@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "project_id": "proj_001",
+    "project_name": "Acme Fixed-Bid Implementation",
+    "client_name": "Acme Corp",
+    "pm_name": "Jordan Lee",
+    "start_date": "2026-05-01",
+    "planned_end_date": "2026-09-30",
+    "budget_total": 250000,
+    "budget_spent": 82000,
+    "actual_percent_complete": 45,
+    "status_notes": "Project is on track with stable stakeholder engagement and no major delivery issues."
+  },
+  "tasks": [
+    {
+      "name": "Discovery and design",
+      "start_date": "2026-05-01",
+      "end_date": "2026-06-15",
+      "percent_complete": 100,
+      "status": "completed",
+      "is_critical_path": true
+    },
+    {
+      "name": "Configuration build",
+      "start_date": "2026-06-16",
+      "end_date": "2026-08-15",
+      "percent_complete": 55,
+      "status": "in progress",
+      "is_critical_path": true
+    }
+  ],
+  "milestones": [
+    {
+      "name": "Design signoff",
+      "due_date": "2026-06-20",
+      "status": "completed",
+      "is_critical_path": true
+    },
+    {
+      "name": "UAT readiness",
+      "due_date": "2026-08-20",
+      "status": "on track",
+      "is_critical_path": true
+    }
+  ],
+  "risks": [
+    {
+      "description": "SME availability needs monitoring during UAT preparation.",
+      "severity": "Low",
+      "opened_date": "2026-07-01",
+      "status": "open"
+    }
+  ],
+  "scope_changes": []
+}

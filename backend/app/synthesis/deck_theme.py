@@ -1,0 +1,15 @@
+"""Centralized deck styling constants."""
+
+NAVY = "1F2A44"
+BLUE = "2F6FED"
+GREEN = "2E7D32"
+AMBER = "B26A00"
+RED = "B00020"
+GRAY = "5C6470"
+LIGHT_GRAY = "EEF2F7"
+WHITE = "FFFFFF"
+
+FONT = "Aptos"
+TITLE_SIZE = 30
+SECTION_TITLE_SIZE = 22
+BODY_SIZE = 14

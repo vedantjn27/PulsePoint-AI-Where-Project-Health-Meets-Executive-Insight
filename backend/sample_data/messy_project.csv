@@ -1,0 +1,4 @@
+Project,Project Manager,Start Date,End Date,% Complete,Budget,Spent,Type,Task,Milestone,Due Date,Status,Risk,Severity,Opened Date,Weekly Notes
+Vendor Portal Recovery,Alex Morgan,2026-04-01,2026-08-30,52,180000,160000,task,Integration Mapping,,2026-07-15,blocked,,,,"Vendor dependency is delayed and escalation is needed."
+Vendor Portal Recovery,Alex Morgan,2026-04-01,2026-08-30,52,180000,160000,milestone,,Cutover Readiness,2026-07-01,at risk,,,,"Critical cutover checkpoint is not ready."
+Vendor Portal Recovery,Alex Morgan,2026-04-01,2026-08-30,52,180000,160000,risk,,,2026-06-01,open,Third-party API credentials not issued,Critical,2026-06-01,"Vendor blocker remains open and is affecting delivery."

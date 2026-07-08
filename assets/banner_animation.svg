@@ -1,0 +1,180 @@
+<svg width="900" height="280" viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0F1E;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0d1b2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A0F1E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1">
+        <animate attributeName="stop-color" values="#00d4ff;#f59e0b;#00d4ff" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient id="pulseGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="280" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- Animated grid lines -->
+  <g opacity="0.07">
+    <line x1="150" y1="0" x2="150" y2="280" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="280" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="450" y1="0" x2="450" y2="280" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="280" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="750" y1="0" x2="750" y2="280" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="0" y1="70" x2="900" y2="70" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="0" y1="140" x2="900" y2="140" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="0" y1="210" x2="900" y2="210" stroke="#00d4ff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Floating particles -->
+  <circle cx="50" cy="50" r="2" fill="#00d4ff" opacity="0.6">
+    <animate attributeName="cy" values="50;230;50" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0;0.6" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="820" cy="180" r="1.5" fill="#a855f7" opacity="0.5">
+    <animate attributeName="cy" values="180;30;180" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0;0.5" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="650" cy="20" r="2" fill="#f59e0b" opacity="0.4">
+    <animate attributeName="cy" values="20;260;20" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="7s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="200" cy="240" r="1.5" fill="#10b981" opacity="0.5">
+    <animate attributeName="cy" values="240;20;240" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0;0.5" dur="9s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Pulse icon on left -->
+  <g transform="translate(60, 140)">
+    <!-- Pulse rings -->
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.8">
+      <animate attributeName="r" values="20;40;20" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.9">
+      <animate attributeName="r" values="15;25;15" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+      <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </circle>
+    <!-- Heartbeat line -->
+    <polyline points="-25,0 -15,0 -10,-15 -5,20 0,-10 5,15 10,0 25,0" 
+              fill="none" stroke="#00d4ff" stroke-width="2.5" filter="url(#glow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,0;200,0" dur="1.5s" repeatCount="indefinite"/>
+    </polyline>
+  </g>
+
+  <!-- Main Title -->
+  <text x="450" y="100" 
+        font-family="'Segoe UI', Arial, sans-serif" 
+        font-size="52" 
+        font-weight="900"
+        fill="url(#titleGrad)"
+        text-anchor="middle"
+        filter="url(#softGlow)"
+        letter-spacing="2">
+    PulsePoint AI
+    <animate attributeName="opacity" values="0;1" dur="1s" fill="freeze"/>
+  </text>
+
+  <!-- Animated underline -->
+  <rect x="200" y="110" width="500" height="2" fill="url(#lineGrad)" rx="1">
+    <animate attributeName="width" values="0;500" dur="1.5s" fill="freeze"/>
+    <animate attributeName="x" values="450;200" dur="1.5s" fill="freeze"/>
+  </rect>
+
+  <!-- Tagline -->
+  <text x="450" y="148" 
+        font-family="'Segoe UI', Arial, sans-serif" 
+        font-size="16" 
+        fill="#94a3b8"
+        text-anchor="middle"
+        letter-spacing="1.5"
+        opacity="0">
+    Where project health meets executive insight
+    <animate attributeName="opacity" values="0;1" dur="1s" begin="0.8s" fill="freeze"/>
+  </text>
+
+  <!-- RAG badges -->
+  <g transform="translate(200, 185)" opacity="0">
+    <rect x="0" y="0" width="80" height="28" rx="14" fill="#10b981" opacity="0.2"/>
+    <rect x="0" y="0" width="80" height="28" rx="14" fill="none" stroke="#10b981" stroke-width="1.5"/>
+    <circle cx="16" cy="14" r="5" fill="#10b981"/>
+    <text x="28" y="18.5" font-family="Arial, sans-serif" font-size="11" fill="#10b981" font-weight="700">GREEN</text>
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.2s" fill="freeze"/>
+  </g>
+
+  <g transform="translate(300, 185)" opacity="0">
+    <rect x="0" y="0" width="88" height="28" rx="14" fill="#f59e0b" opacity="0.2"/>
+    <rect x="0" y="0" width="88" height="28" rx="14" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="16" cy="14" r="5" fill="#f59e0b"/>
+    <text x="28" y="18.5" font-family="Arial, sans-serif" font-size="11" fill="#f59e0b" font-weight="700">AMBER</text>
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.4s" fill="freeze"/>
+  </g>
+
+  <g transform="translate(408, 185)" opacity="0">
+    <rect x="0" y="0" width="70" height="28" rx="14" fill="#ef4444" opacity="0.2"/>
+    <rect x="0" y="0" width="70" height="28" rx="14" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+    <circle cx="16" cy="14" r="5" fill="#ef4444">
+      <animate attributeName="r" values="5;6;5" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <text x="28" y="18.5" font-family="Arial, sans-serif" font-size="11" fill="#ef4444" font-weight="700">RED</text>
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.6s" fill="freeze"/>
+  </g>
+
+  <!-- Feature tags -->
+  <g opacity="0">
+    <rect x="515" y="180" width="130" height="26" rx="13" fill="#a855f7" opacity="0.15"/>
+    <rect x="515" y="180" width="130" height="26" rx="13" fill="none" stroke="#a855f7" stroke-width="1"/>
+    <text x="580" y="197" font-family="Arial, sans-serif" font-size="10.5" fill="#a855f7" text-anchor="middle" font-weight="600">🤖 Agentic AI Reasoning</text>
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.8s" fill="freeze"/>
+  </g>
+
+  <g opacity="0">
+    <rect x="660" y="180" width="110" height="26" rx="13" fill="#00d4ff" opacity="0.15"/>
+    <rect x="660" y="180" width="110" height="26" rx="13" fill="none" stroke="#00d4ff" stroke-width="1"/>
+    <text x="715" y="197" font-family="Arial, sans-serif" font-size="10.5" fill="#00d4ff" text-anchor="middle" font-weight="600">📊 Executive Insights</text>
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2s" fill="freeze"/>
+  </g>
+
+  <!-- Bottom line -->
+  <text x="450" y="248" 
+        font-family="'Segoe UI', Arial, sans-serif" 
+        font-size="11" 
+        fill="#475569"
+        text-anchor="middle"
+        letter-spacing="2"
+        opacity="0">
+    FASTAPI · MISTRAL AI · REACT · TANSTACK · SQLITE · PYTHON-PPTX
+    <animate attributeName="opacity" values="0;0.8" dur="1s" begin="2.2s" fill="freeze"/>
+  </text>
+
+  <!-- Scanning line effect -->
+  <rect x="0" y="0" width="900" height="3" fill="url(#lineGrad)" opacity="0.4">
+    <animate attributeName="y" values="-3;283;-3" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</svg>

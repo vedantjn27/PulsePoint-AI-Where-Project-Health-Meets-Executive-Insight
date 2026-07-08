@@ -1,0 +1,85 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.local
+.dev.vars
+
+# Python / backend
+backend/.venv/
+backend/venv/
+backend/env/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.py[cod]
+backend/**/*.py[cod]
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/.matplotlib/
+backend/htmlcov/
+backend/.coverage
+backend/coverage.xml
+
+# Backend runtime data and generated exports
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+backend/pulsepoint.db
+backend/outputs/**
+!backend/outputs/
+!backend/outputs/decks/
+!backend/outputs/weekly_reports/
+backend/logs/
+backend/*.log
+backend/**/*.log
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.output/
+frontend/.vinxi/
+frontend/.tanstack/
+frontend/.nitro/
+frontend/.cache/
+frontend/.vite/
+frontend/coverage/
+frontend/logs/
+
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Lovable / generated app metadata
+frontend/.lovable/
+.lovable/
+
+# Docker / local runtime overrides
+*.pid
+*.seed
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor and IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+~$*

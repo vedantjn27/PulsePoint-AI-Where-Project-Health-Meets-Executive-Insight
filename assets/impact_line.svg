@@ -1,0 +1,71 @@
+<svg width="900" height="100" viewBox="0 0 900 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="impactBg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0A0F1E"/>
+      <stop offset="50%" style="stop-color:#0d1b2e"/>
+      <stop offset="100%" style="stop-color:#0A0F1E"/>
+    </linearGradient>
+    <linearGradient id="impactTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b">
+        <animate attributeName="stop-color" values="#f59e0b;#00d4ff;#a855f7;#f59e0b" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#a855f7">
+        <animate attributeName="stop-color" values="#a855f7;#f59e0b;#00d4ff;#a855f7" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#00d4ff">
+        <animate attributeName="stop-color" values="#00d4ff;#a855f7;#f59e0b;#00d4ff" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="impactGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="lineGradImpact" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="100" fill="url(#impactBg)" rx="12"/>
+  
+  <!-- Decorative left quote -->
+  <text x="30" y="65" font-family="Georgia, serif" font-size="60" fill="#a855f7" opacity="0.15">"</text>
+
+  <!-- Main impact line -->
+  <text x="450" y="42"
+        font-family="'Segoe UI', Georgia, serif"
+        font-size="13.5"
+        fill="url(#impactTextGrad)"
+        text-anchor="middle"
+        font-style="italic"
+        font-weight="600"
+        filter="url(#impactGlow)"
+        letter-spacing="0.5">
+    Because great projects don't fail overnight—they whisper before they scream.
+  </text>
+
+  <text x="450" y="66"
+        font-family="'Segoe UI', Georgia, serif"
+        font-size="13.5"
+        fill="url(#impactTextGrad)"
+        text-anchor="middle"
+        font-style="italic"
+        font-weight="600"
+        filter="url(#impactGlow)"
+        letter-spacing="0.5">
+    This agent simply learns to listen.
+  </text>
+
+  <!-- Animated underline -->
+  <rect x="150" y="76" width="600" height="1.5" fill="url(#lineGradImpact)" rx="1">
+    <animate attributeName="width" values="0;600;600" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="450;150;150" dur="2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Right quote -->
+  <text x="848" y="68" font-family="Georgia, serif" font-size="60" fill="#a855f7" opacity="0.15">"</text>
+</svg>

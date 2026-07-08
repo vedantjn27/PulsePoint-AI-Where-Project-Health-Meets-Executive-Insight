@@ -1,0 +1,41 @@
+version: 1
+weights:
+  schedule: 0.25
+  budget: 0.25
+  milestones: 0.20
+  blockers: 0.20
+  sentiment: 0.10
+rag_thresholds:
+  green_min: 75
+  amber_min: 50
+schedule:
+  variance_green: 0
+  variance_red: -20
+budget:
+  burn_ratio_green: 1.0
+  burn_ratio_red: 1.5
+milestones:
+  overdue_penalty: 25
+  at_risk_penalty: 15
+  missing_due_date_penalty: 5
+blockers:
+  severity_points:
+    low: 8
+    medium: 18
+    med: 18
+    high: 32
+    critical: 55
+  age_penalty_per_week: 4
+  max_age_penalty: 24
+sentiment:
+  positive: 85
+  neutral: 60
+  negative: 35
+  absent: 60
+scope_penalty:
+  max_penalty: -10
+  penalty_per_scope_change: -2
+overrides:
+  critical_blocker_open_days_red: 14
+  budget_burn_ratio_red: 1.5
+  high_blocker_open_days_cap_amber: 21

@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+apscheduler
+python-pptx
+matplotlib
+pandas
+openpyxl
+python-multipart
+python-docx
+httpx
+pyyaml
+pytest

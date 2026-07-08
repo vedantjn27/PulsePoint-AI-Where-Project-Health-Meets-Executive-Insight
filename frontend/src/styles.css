@@ -1,0 +1,519 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-rag-green: var(--rag-green);
+  --color-rag-amber: var(--rag-amber);
+  --color-rag-red: var(--rag-red);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.99 0.005 240);
+  --foreground: oklch(0.18 0.03 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 250);
+  --primary: oklch(0.55 0.18 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.01 250);
+  --secondary-foreground: oklch(0.22 0.03 250);
+  --muted: oklch(0.96 0.01 250);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --accent: oklch(0.94 0.03 200);
+  --accent-foreground: oklch(0.22 0.03 250);
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.92 0.01 250);
+  --input: oklch(0.92 0.01 250);
+  --ring: oklch(0.55 0.18 255);
+  --rag-green: oklch(0.7 0.17 155);
+  --rag-amber: oklch(0.78 0.16 75);
+  --rag-red: oklch(0.62 0.22 27);
+  --brand: oklch(0.6 0.2 260);
+  --brand-2: oklch(0.72 0.16 195);
+}
+
+.dark {
+  --background: oklch(0.14 0.02 250);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.19 0.03 255);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.19 0.03 255);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: oklch(0.72 0.16 220);
+  --primary-foreground: oklch(0.14 0.02 250);
+  --secondary: oklch(0.24 0.03 255);
+  --secondary-foreground: oklch(0.97 0.005 250);
+  --muted: oklch(0.24 0.03 255);
+  --muted-foreground: oklch(0.68 0.03 250);
+  --accent: oklch(0.28 0.06 220);
+  --accent-foreground: oklch(0.97 0.005 250);
+  --destructive: oklch(0.65 0.22 27);
+  --destructive-foreground: oklch(0.97 0.005 250);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.72 0.16 220);
+  --rag-green: oklch(0.75 0.18 155);
+  --rag-amber: oklch(0.82 0.17 75);
+  --rag-red: oklch(0.68 0.22 27);
+  --brand: oklch(0.72 0.18 260);
+  --brand-2: oklch(0.78 0.17 195);
+}
+
+@theme {
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 8s linear infinite;
+  --animate-fade-up: fade-up 0.6s ease-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes dashboard-contour-flow {
+  0% { background-position: 0% 50%, 100% 30%, 50% 0%; transform: scale(1); }
+  50% { background-position: 100% 45%, 0% 70%, 45% 100%; transform: scale(1.015); }
+  100% { background-position: 0% 50%, 100% 30%, 50% 0%; transform: scale(1); }
+}
+@keyframes dashboard-node-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.44; }
+  50% { transform: translate3d(18px, -14px, 0) rotate(1deg); opacity: 0.72; }
+}
+@keyframes brand-signal-pan {
+  0% { background-position: 0% 20%, 100% 10%, 0 0, 0 0; }
+  50% { background-position: 18% 28%, 82% 62%, 34px 0, -46px 0; }
+  100% { background-position: 0% 20%, 100% 10%, 0 0, 0 0; }
+}
+@keyframes brand-line-scan {
+  0% { transform: translateX(-8%) skewX(-8deg); opacity: 0.14; }
+  50% { opacity: 0.28; }
+  100% { transform: translateX(8%) skewX(-8deg); opacity: 0.14; }
+}
+@keyframes auth-grid-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.32; }
+  50% { transform: translate3d(16px, -10px, 0); opacity: 0.52; }
+}
+@keyframes auth-cockpit-float {
+  0%, 100% { transform: translate(-50%, -50%) translate3d(0, 0, 0); }
+  50% { transform: translate(-50%, -50%) translate3d(0, -12px, 0); }
+}
+@keyframes auth-orbit-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+  50% { transform: translate3d(0, -14px, 0) rotate(1deg); }
+}
+@keyframes auth-dial-glow {
+  0%, 100% { box-shadow: inset 0 0 0 8px rgba(16, 185, 129, 0.18), 0 0 34px rgba(103, 232, 249, 0.18); }
+  50% { box-shadow: inset 0 0 0 8px rgba(16, 185, 129, 0.3), 0 0 46px rgba(103, 232, 249, 0.34); }
+}
+
+@utility gradient-brand {
+  background-image: linear-gradient(135deg, var(--brand), var(--brand-2));
+}
+@utility text-gradient {
+  background-image: linear-gradient(135deg, var(--brand), var(--brand-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+@utility glass {
+  background-color: color-mix(in oklab, var(--card) 60%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.brand-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.brand-hero {
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+}
+
+.brand-hero::before,
+.brand-hero::after,
+.brand-ambient-section::before,
+.brand-flow-section::before,
+.brand-cta-panel::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+}
+
+.brand-hero::before {
+  inset: 0;
+  z-index: 0;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(100deg, transparent 0 38%, rgba(34, 211, 238, 0.12) 45%, transparent 58%),
+    repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 112px),
+    repeating-linear-gradient(0deg, rgba(148, 163, 184, 0.05) 0 1px, transparent 1px 112px);
+  mask-image: radial-gradient(ellipse at 50% 26%, black 0%, transparent 70%);
+  animation: brand-line-scan 18s ease-in-out infinite alternate;
+}
+
+.brand-hero::after {
+  inset: auto 0 0;
+  z-index: 0;
+  height: 18rem;
+  background: linear-gradient(180deg, transparent, var(--background));
+}
+
+.brand-hero > .mx-auto {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-ambient-section,
+.brand-flow-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.brand-ambient-section::before {
+  inset: -20%;
+  z-index: 0;
+  opacity: 0.48;
+  background-image:
+    radial-gradient(ellipse at 18% 30%, color-mix(in oklab, var(--brand-2) 10%, transparent), transparent 36%),
+    radial-gradient(ellipse at 84% 68%, color-mix(in oklab, var(--brand) 8%, transparent), transparent 32%),
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--foreground) 4%, transparent) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(116deg, color-mix(in oklab, var(--brand-2) 4%, transparent) 0 1px, transparent 1px 118px);
+  background-size: 130% 130%, 120% 120%, 100% 100%, 100% 100%;
+  animation: brand-signal-pan 42s ease-in-out infinite;
+}
+
+.brand-ambient-section > .mx-auto,
+.brand-flow-section > .mx-auto {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-flow-section {
+  background-size: cover;
+  background-position: center;
+}
+
+.brand-flow-section::before {
+  inset: 0;
+  z-index: 0;
+  opacity: 0.46;
+  background:
+    linear-gradient(115deg, transparent 0 32%, color-mix(in oklab, var(--brand-2) 8%, transparent) 42%, transparent 54%),
+    repeating-linear-gradient(90deg, color-mix(in oklab, var(--foreground) 5%, transparent) 0 1px, transparent 1px 118px);
+  mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
+  animation: brand-line-scan 22s ease-in-out infinite alternate;
+}
+
+.brand-cta-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-cta-panel::before {
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(105deg, transparent 0 40%, rgba(255, 255, 255, 0.16) 48%, transparent 58%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 108px);
+  mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+  animation: brand-line-scan 18s ease-in-out infinite alternate;
+}
+
+.brand-cta-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-brand-panel {
+  background:
+    linear-gradient(145deg, rgba(3, 7, 18, 0.22), rgba(3, 7, 18, 0.42)),
+    linear-gradient(135deg, var(--brand), var(--brand-2));
+  isolation: isolate;
+}
+
+.auth-brand-panel::before,
+.auth-brand-panel::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.auth-brand-panel::before {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 74px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 74px);
+  mask-image: linear-gradient(180deg, black 0%, transparent 72%);
+  animation: auth-grid-drift 16s ease-in-out infinite;
+}
+
+.auth-brand-panel::after {
+  background: linear-gradient(180deg, transparent 0%, rgba(2, 6, 23, 0.36) 100%);
+}
+
+.auth-logo-on-brand span {
+  color: white;
+  text-shadow: 0 2px 18px rgba(2, 6, 23, 0.42);
+}
+
+.auth-logo-on-brand .text-gradient {
+  background-image: none;
+  color: rgb(190 242 255);
+  -webkit-text-fill-color: currentColor;
+}
+
+.auth-visual {
+  min-height: 27rem;
+  max-width: 34rem;
+  margin: 0.75rem auto 1.25rem;
+  width: 100%;
+}
+
+.auth-visual::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 1.6rem 1rem 1.25rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.24), transparent 54%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.32)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 58px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.11) 0 1px, transparent 1px 58px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 80px rgba(2, 6, 23, 0.24);
+  animation: auth-grid-drift 18s ease-in-out infinite;
+}
+
+.auth-cockpit,
+.auth-orbit-card {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.46);
+  box-shadow: 0 18px 46px rgba(2, 6, 23, 0.24);
+  backdrop-filter: blur(16px);
+}
+
+.auth-cockpit {
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: min(68%, 22.5rem);
+  transform: translate(-50%, -50%);
+  border-radius: 1.4rem;
+  padding: 1rem;
+  color: white;
+  animation: auth-cockpit-float 8s ease-in-out infinite;
+}
+
+.auth-orbit-card {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  z-index: 4;
+  border-radius: 1rem;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  background: rgba(15, 23, 42, 0.38);
+  animation: auth-orbit-float 6.5s ease-in-out infinite;
+}
+
+.auth-orbit-card svg {
+  color: rgb(165 243 252);
+}
+
+.auth-orbit-left {
+  left: 2.7rem;
+  top: 4.25rem;
+}
+
+.auth-orbit-right {
+  right: 2.6rem;
+  bottom: 3rem;
+  animation-delay: 1.1s;
+}
+
+.auth-score-dial {
+  display: grid;
+  place-items: center;
+  height: 3.65rem;
+  width: 3.65rem;
+  border-radius: 999px;
+  background:
+    conic-gradient(from 210deg, rgb(52 211 153) 0 74%, rgba(255, 255, 255, 0.16) 74% 100%),
+    rgba(15, 23, 42, 0.64);
+  animation: auth-dial-glow 4s ease-in-out infinite;
+}
+
+.auth-score-dial span {
+  display: grid;
+  place-items: center;
+  height: 2.7rem;
+  width: 2.7rem;
+  border-radius: inherit;
+  background: rgba(15, 23, 42, 0.92);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.auth-process-chip {
+  display: flex;
+  min-height: 3.2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgb(224 242 254);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.auth-process-chip svg {
+  color: rgb(165 243 252);
+}
+
+.auth-chart-panel,
+.auth-risk-panel {
+  min-height: 6.8rem;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.07);
+  padding: 0.9rem;
+}
+
+.auth-bar {
+  height: 0.62rem;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.auth-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.auth-rag-pill {
+  border-radius: 999px;
+  padding: 0.45rem 0.65rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.dashboard-stage {
+  position: relative;
+  min-height: calc(100vh - 3.5rem);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 16% 12%, color-mix(in oklab, var(--brand-2) 12%, transparent), transparent 32rem),
+    radial-gradient(circle at 88% 10%, color-mix(in oklab, var(--brand) 10%, transparent), transparent 28rem),
+    linear-gradient(180deg, color-mix(in oklab, var(--background) 96%, var(--brand-2) 4%), var(--background) 48%);
+}
+
+.dashboard-grid-layer,
+.dashboard-signal-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.dashboard-grid-layer {
+  opacity: 0.54;
+  background-image:
+    radial-gradient(ellipse at 18% 20%, color-mix(in oklab, var(--brand-2) 18%, transparent), transparent 30%),
+    radial-gradient(ellipse at 84% 18%, color-mix(in oklab, var(--brand) 14%, transparent), transparent 28%),
+    repeating-radial-gradient(circle at 52% 18%, color-mix(in oklab, var(--foreground) 7%, transparent) 0 1px, transparent 1px 26px);
+  background-size: 130% 130%, 120% 120%, 100% 100%;
+  mask-image: linear-gradient(180deg, black 0%, black 64%, transparent 100%);
+  animation: dashboard-contour-flow 24s ease-in-out infinite;
+}
+
+.dashboard-signal-layer {
+  opacity: 0.62;
+  background:
+    radial-gradient(circle at 22% 38%, color-mix(in oklab, var(--brand-2) 18%, transparent) 0 0.28rem, transparent 0.34rem),
+    radial-gradient(circle at 74% 24%, color-mix(in oklab, var(--brand) 16%, transparent) 0 0.22rem, transparent 0.3rem),
+    radial-gradient(circle at 58% 58%, color-mix(in oklab, var(--rag-green) 14%, transparent) 0 0.2rem, transparent 0.28rem),
+    linear-gradient(115deg, transparent 0 36%, color-mix(in oklab, var(--brand-2) 8%, transparent) 40%, transparent 48%);
+  filter: blur(0.1px);
+  mask-image: radial-gradient(ellipse at 50% 26%, black 0%, transparent 72%);
+  animation: dashboard-node-drift 12s ease-in-out infinite;
+}
+
+.dashboard-stage [data-slot="card"],
+.dashboard-stage .rounded-xl.border,
+.dashboard-stage .rounded-lg.border {
+  backdrop-filter: blur(10px);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+}
