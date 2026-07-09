@@ -1,17 +1,23 @@
 // PulsePoint AI API client
-export const API_BASE_URL =
-  (typeof window !== "undefined" && localStorage.getItem("pp_api_base")) ||
-  (import.meta as any).env?.VITE_API_BASE_URL ||
-  "http://127.0.0.1:8000";
+function normalizeApiBase(url: string) {
+  return url.trim().replace(/\/+$/, "");
+}
+
+export const DEFAULT_API_BASE_URL = normalizeApiBase(
+  (import.meta as any).env?.VITE_API_BASE_URL || "http://127.0.0.1:8000"
+);
+
+export const API_BASE_URL = DEFAULT_API_BASE_URL;
 
 export function setApiBase(url: string) {
-  if (typeof window !== "undefined") localStorage.setItem("pp_api_base", url);
+  if (typeof window !== "undefined") localStorage.setItem("pp_api_base", normalizeApiBase(url));
 }
 export function getApiBase() {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("pp_api_base") || API_BASE_URL;
+    const saved = localStorage.getItem("pp_api_base");
+    return saved ? normalizeApiBase(saved) : DEFAULT_API_BASE_URL;
   }
-  return API_BASE_URL;
+  return DEFAULT_API_BASE_URL;
 }
 
 async function handle<T>(res: Response): Promise<T> {

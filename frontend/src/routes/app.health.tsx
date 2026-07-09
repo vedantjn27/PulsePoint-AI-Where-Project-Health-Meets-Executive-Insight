@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { api, getApiBase, setApiBase } from "@/lib/api";
+import { api, DEFAULT_API_BASE_URL, getApiBase, setApiBase } from "@/lib/api";
 import { PageContainer, PageHeader, ErrorBox, StatCard } from "@/components/page-parts";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,7 @@ function HealthPage() {
             <Save className="h-4 w-4 mr-2" /> Save
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground mt-2">Default: http://127.0.0.1:8000</p>
+        <p className="text-xs text-muted-foreground mt-2">Build default: {DEFAULT_API_BASE_URL}</p>
       </Card>
 
       {error && <ErrorBox error={error} />}
