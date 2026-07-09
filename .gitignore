@@ -44,6 +44,7 @@ frontend/.tanstack/
 frontend/.nitro/
 frontend/.cache/
 frontend/.vite/
+frontend/.vercel/
 frontend/coverage/
 frontend/logs/
 
