@@ -1,0 +1,7 @@
+PulsePoint AI Deployment Links
+
+Frontend:
+https://pulse-point-ai-where-project-health-roan.vercel.app
+
+Backend:
+https://pulsepoint-ai-where-project-health-meets.onrender.com
