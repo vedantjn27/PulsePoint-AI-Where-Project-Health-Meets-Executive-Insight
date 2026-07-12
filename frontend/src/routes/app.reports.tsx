@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { api, apiUrl, type Project } from "@/lib/api";
+import { api, type Project } from "@/lib/api";
+import { downloadBackendFile } from "@/lib/download";
 import { PageContainer, PageHeader, ErrorBox, LoadingSkeleton } from "@/components/page-parts";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
+import { toast } from "sonner";
 import { FileDown, FileText, ArrowRight, History } from "lucide-react";
 
 export const Route = createFileRoute("/app/reports")({ component: ReportsPage });
@@ -14,9 +16,30 @@ function ReportsPage() {
   const projects = useQuery<Project[]>({ queryKey: ["projects"], queryFn: () => api("/projects") });
   const history = useQuery<any[]>({ queryKey: ["audit-log"], queryFn: () => api("/audit-log?limit=200") });
   const [selected, setSelected] = useState<string>("");
+  const [downloading, setDownloading] = useState<"md" | "pdf" | null>(null);
   const reportHistory = (history.data || []).filter((event: any) =>
     ["weekly_pdf_exported", "weekly_markdown_exported"].includes(event.event_type)
   );
+
+  async function downloadReport(format: "md" | "pdf") {
+    if (!selected) return;
+    setDownloading(format);
+    try {
+      await downloadBackendFile(
+        format === "md" ? `/projects/${selected}/export` : `/projects/${selected}/export/pdf`,
+        {
+          filename: `${selected}_weekly_status_report.${format}`,
+          accept: format === "md" ? "text/markdown" : "application/pdf",
+        },
+      );
+      toast.success(`${format === "md" ? "Markdown" : "PDF"} report downloaded`);
+      history.refetch();
+    } catch (error: any) {
+      toast.error(error.message || "Download failed");
+    } finally {
+      setDownloading(null);
+    }
+  }
 
   return (
     <PageContainer>
@@ -37,15 +60,11 @@ function ReportsPage() {
                 </SelectContent>
               </Select>
               <div className="flex gap-2 flex-wrap">
-                <Button asChild variant="outline" disabled={!selected}>
-                  <a href={selected ? apiUrl(`/projects/${selected}/export`) : "#"} target="_blank" rel="noreferrer">
-                    <FileText className="h-4 w-4 mr-2" /> Markdown
-                  </a>
+                <Button variant="outline" disabled={!selected || downloading !== null} onClick={() => downloadReport("md")}>
+                  <FileText className="h-4 w-4 mr-2" /> {downloading === "md" ? "Downloading..." : "Markdown"}
                 </Button>
-                <Button asChild disabled={!selected} className="gradient-brand text-white border-0">
-                  <a href={selected ? apiUrl(`/projects/${selected}/export/pdf`) : "#"} target="_blank" rel="noreferrer" download>
-                    <FileDown className="h-4 w-4 mr-2" /> Download PDF
-                  </a>
+                <Button disabled={!selected || downloading !== null} className="gradient-brand text-white border-0" onClick={() => downloadReport("pdf")}>
+                  <FileDown className="h-4 w-4 mr-2" /> {downloading === "pdf" ? "Downloading..." : "Download PDF"}
                 </Button>
               </div>
             </div>

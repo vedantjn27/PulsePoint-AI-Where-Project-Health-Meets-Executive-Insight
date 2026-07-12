@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, apiUrl, type Project, type Snapshot, type AnalyzeResult, type ScoreBreakdown, type ProjectOverviewTable, type ProjectOverviewRow, type UploadValidationResult } from "@/lib/api";
+import { api, type Project, type Snapshot, type AnalyzeResult, type ScoreBreakdown, type ProjectOverviewTable, type ProjectOverviewRow, type UploadValidationResult } from "@/lib/api";
+import { downloadBackendFile } from "@/lib/download";
 import { PageContainer, PageHeader, StatCard, ErrorBox, LoadingSkeleton } from "@/components/page-parts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -1320,11 +1321,27 @@ function formatTraceValue(value: any): string {
 
 function ExportsTab({ projectId }: { projectId: string }) {
   const [md, setMd] = useState<string | null>(null);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
   const load = useMutation({
     mutationFn: () => api<string>(`/projects/${projectId}/export`),
     onSuccess: (d) => setMd(typeof d === "string" ? d : JSON.stringify(d, null, 2)),
     onError: (e: any) => toast.error(e.message),
   });
+
+  async function downloadPdf() {
+    setDownloadingPdf(true);
+    try {
+      await downloadBackendFile(`/projects/${projectId}/export/pdf`, {
+        filename: `${projectId}_weekly_status_report.pdf`,
+        accept: "application/pdf",
+      });
+      toast.success("Weekly PDF downloaded");
+    } catch (error: any) {
+      toast.error(error.message || "Download failed");
+    } finally {
+      setDownloadingPdf(false);
+    }
+  }
 
   return (
     <div className="grid gap-4">
@@ -1334,10 +1351,8 @@ function ExportsTab({ projectId }: { projectId: string }) {
           <Button onClick={() => load.mutate()} variant="outline" disabled={load.isPending}>
             <FileText className="h-4 w-4 mr-2" /> {load.isPending ? "Loading…" : "View Markdown report"}
           </Button>
-          <Button asChild className="gradient-brand text-white border-0">
-            <a href={apiUrl(`/projects/${projectId}/export/pdf`)} target="_blank" rel="noreferrer" download>
-              <FileDown className="h-4 w-4 mr-2" /> Download weekly PDF
-            </a>
+          <Button className="gradient-brand text-white border-0" onClick={downloadPdf} disabled={downloadingPdf}>
+            <FileDown className="h-4 w-4 mr-2" /> {downloadingPdf ? "Downloading..." : "Download weekly PDF"}
           </Button>
         </div>
       </Card>

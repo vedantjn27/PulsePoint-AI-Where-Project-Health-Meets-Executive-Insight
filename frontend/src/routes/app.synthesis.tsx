@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { downloadBackendFile } from "@/lib/download";
 import { PageContainer, PageHeader, StatCard, ErrorBox, LoadingSkeleton } from "@/components/page-parts";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "sonner";
-import { AlertTriangle, ArrowRight, CheckCircle2, GitCompareArrows, Presentation, RefreshCw, Calendar, TrendingUp, TrendingDown, Minus, ShieldAlert } from "lucide-react";
+import { AlertTriangle, ArrowRight, CheckCircle2, FileDown, GitCompareArrows, Presentation, RefreshCw, Calendar, TrendingUp, TrendingDown, Minus, ShieldAlert } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { ragColor } from "@/lib/rag";
 
@@ -20,10 +21,26 @@ function SynthesisPage() {
   const qc = useQueryClient();
   const synthesis = useQuery<any>({ queryKey: ["synthesis"], queryFn: () => api("/synthesis/monthly") });
   const history = useQuery<any[]>({ queryKey: ["deck-history"], queryFn: () => api("/synthesis/history") });
+  const [downloadingDeck, setDownloadingDeck] = useState<string | null>(null);
+
+  async function downloadDeck(deck: { filename: string; download_url?: string }) {
+    setDownloadingDeck(deck.filename);
+    try {
+      await downloadBackendFile(deck.download_url || `/synthesis/decks/${deck.filename}/download`, {
+        filename: deck.filename,
+        accept: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      });
+      toast.success("Deck downloaded");
+    } catch (error: any) {
+      toast.error(error.message || "Deck download failed");
+    } finally {
+      setDownloadingDeck(null);
+    }
+  }
 
   const genDefault = useMutation({
     mutationFn: () => api("/synthesis/generate-deck", { method: "POST", body: JSON.stringify({}) }),
-    onSuccess: (d: any) => { toast.success(`Deck generated: ${d.filename}`); qc.invalidateQueries({ queryKey: ["deck-history"] }); qc.invalidateQueries({ queryKey: ["audit-log"] }); },
+    onSuccess: (d: any) => { toast.success(`Deck generated: ${d.filename}`); qc.invalidateQueries({ queryKey: ["deck-history"] }); qc.invalidateQueries({ queryKey: ["audit-log"] }); downloadDeck(d); },
     onError: (e: any) => toast.error(e.message),
   });
 
@@ -60,7 +77,7 @@ function SynthesisPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs uppercase text-muted-foreground border-b">
-              <th className="py-2 px-2">Filename</th><th className="py-2 px-2">Size</th><th className="py-2 px-2">Modified</th><th className="py-2 px-2">Storage</th>
+              <th className="py-2 px-2">Filename</th><th className="py-2 px-2">Size</th><th className="py-2 px-2">Modified</th><th className="py-2 px-2">Download</th>
             </tr></thead>
             <tbody>
               {(history.data || []).map((d: any, i: number) => (
@@ -68,7 +85,11 @@ function SynthesisPage() {
                   <td className="py-2 px-2 font-mono text-xs">{d.filename || d.name}</td>
                   <td className="py-2 px-2">{d.size_bytes ? `${Math.round(d.size_bytes / 1024)} KB` : "N/A"}</td>
                   <td className="py-2 px-2">{d.modified_at ? new Date(Number(d.modified_at) * 1000).toLocaleString() : "N/A"}</td>
-                  <td className="py-2 px-2 text-xs text-muted-foreground">Generated deck storage</td>
+                  <td className="py-2 px-2">
+                    <Button size="sm" variant="outline" onClick={() => downloadDeck(d)} disabled={downloadingDeck === d.filename}>
+                      <FileDown className="h-3.5 w-3.5 mr-1.5" /> {downloadingDeck === d.filename ? "Downloading..." : "Download"}
+                    </Button>
+                  </td>
                 </tr>
               ))}
               {(!history.data || history.data.length === 0) && <tr><td colSpan={4} className="py-4 text-center text-muted-foreground">No decks generated yet.</td></tr>}
@@ -249,7 +270,20 @@ function BrandedDialog({ onClose }: { onClose: () => void }) {
   const [form, setForm] = useState({ use_default_branding: false, client_name: "", primary_color: "#5b6ee1", accent_color: "#22c1c3", logo_path: "" });
   const gen = useMutation({
     mutationFn: () => api("/synthesis/generate-deck", { method: "POST", body: JSON.stringify({ branding: { ...form, logo_path: form.logo_path || undefined } }) }),
-    onSuccess: (d: any) => { toast.success(`Branded deck generated: ${d.filename}`); qc.invalidateQueries({ queryKey: ["deck-history"] }); qc.invalidateQueries({ queryKey: ["audit-log"] }); onClose(); },
+    onSuccess: async (d: any) => {
+      toast.success(`Branded deck generated: ${d.filename}`);
+      qc.invalidateQueries({ queryKey: ["deck-history"] });
+      qc.invalidateQueries({ queryKey: ["audit-log"] });
+      onClose();
+      try {
+        await downloadBackendFile(d.download_url || `/synthesis/decks/${d.filename}/download`, {
+          filename: d.filename,
+          accept: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        });
+      } catch (error: any) {
+        toast.error(error.message || "Deck download failed");
+      }
+    },
     onError: (e: any) => toast.error(e.message),
   });
   return (

@@ -170,11 +170,16 @@ def simulate_project_endpoint(
 
 
 @router.get("/{project_id}/export", response_class=PlainTextResponse)
-def export_project_endpoint(project_id: str, db: DbSession) -> str:
+def export_project_endpoint(project_id: str, db: DbSession) -> PlainTextResponse:
     try:
-        return export_project_report(db, project_id)
+        report = export_project_report(db, project_id)
     except ProjectNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return PlainTextResponse(
+        report,
+        media_type="text/markdown; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{project_id}_weekly_status_report.md"'},
+    )
 
 
 @router.get("/{project_id}/export/pdf")

@@ -63,6 +63,7 @@ class SynthesisResponse(BaseModel):
 class DeckGenerationResponse(BaseModel):
     filename: str
     path: str
+    download_url: str
     slides: int
     branding_applied: bool = False
 
@@ -92,5 +93,6 @@ class DeckGenerationRequest(BaseModel):
 class SynthesisHistoryItem(BaseModel):
     filename: str
     path: str
+    download_url: str
     size_bytes: int
     modified_at: str
